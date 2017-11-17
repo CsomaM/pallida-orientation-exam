@@ -15,12 +15,29 @@ public class MainController {
     @Autowired
     LicencePlateRepo licencePlateRepo;
 
-    @RequestMapping({"", "/", "/index"})
-    public String mainPage(Model model) {
-        model.addAttribute("searchedplatenumber", new LicencePlate());
-        model.addAttribute("platenumbers", licencePlateRepo.findAll());
+    @RequestMapping({"", "/", "/index", })
+    public String mainPage( Model model) {
+            model.addAttribute("searchedplatenumber", new LicencePlate());
+            model.addAttribute("platenumbers", licencePlateRepo.findAll());
         return "index";
     }
+
+    @RequestMapping("/index/{type}")
+    public String mainPageWithType(@PathVariable String type, Model model) {
+        if (type.equals("RB")) {
+            model.addAttribute("searchedplatenumber", new LicencePlate());
+            model.addAttribute("platenumbers", licencePlateRepo.findLicenceType("RB"));
+        } else if (type.equals("DT")) {
+            model.addAttribute("searchedplatenumber", new LicencePlate());
+            model.addAttribute("platenumbers", licencePlateRepo.findLicenceType("DT"));
+        } else {
+            model.addAttribute("searchedplatenumber", new LicencePlate());
+            model.addAttribute("platenumbers", licencePlateRepo.findBrand(type));
+        }
+        return "index";
+    }
+
+
 
     @PostMapping("/search")
     public String add (@ModelAttribute LicencePlate licencePlate, Model model){

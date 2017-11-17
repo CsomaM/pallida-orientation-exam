@@ -11,6 +11,8 @@
     <div class="form-group" >
         <label for="search" >Search for a plate number:</label><br />
         <input type="text" class="col-md-4 mb-2" id="search"  placeholder="Enter desired plate number" th:field="*{plate}" />
+        <a href="index/RB">Police cars</a>
+        <a href="index/DT">Diplomat cars</a>
     </div>
     <button type="submit" class="btn btn-primary">Add post</button>
 </form>
@@ -18,18 +20,20 @@
 
 <table>
     <thead>
-        <th>|Licence plate|</th>
-        <th>|Brand|</th>
-        <th>|Model|</th>
-        <th>|Color|</th>
-        <th>|Year|</th>
+        <th>|  Licence plate</th>
+        <th>  |  Brand</th>
+        <th>  |  Model</th>
+        <th>  |  Color</th>
+        <th>  |  Year|</th>
     </thead>
     <tbody th:each="platenumber : ${platenumbers}">
-        <th th:text="*{platenumber.plate}">|Licence plate|</th>
-        <th th:text="*{platenumber.car_brand}">|Brand|</th>
-        <th th:text="*{platenumber.car_model}">|Model|</th>
-        <th th:text="*{platenumber.color}">|Color|</th>
-        <th th:text="*{platenumber.year}">|Year|</th>
+        <th th:text="*{'|  ' + platenumber.plate}">|Licence plate|</th>
+        <th>
+            <a th:href="@{'index/{brand}'(brand=${platenumber.car_brand})}" th:text="*{'  |  ' + platenumber.car_brand}">|Brand|</a>
+        </th>
+        <th th:text="*{'  |  ' + platenumber.car_model}">|Model|</th>
+        <th th:text="*{'  |  ' + platenumber.color}">|Color|</th>
+        <th th:text="*{'  |  ' + platenumber.year + '|'}">|Year|</th>
     </tbody>
 </table>
 

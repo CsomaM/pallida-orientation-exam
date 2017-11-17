@@ -10,4 +10,10 @@ public interface LicencePlateRepo extends CrudRepository<LicencePlate, Long> {
 
     @Query(value = "SELECT * FROM licence_plates WHERE plate LIKE %?1%", nativeQuery = true)
     List<LicencePlate> findLicencePlate (String plateNum);
+
+    @Query(value = "SELECT * FROM licence_plates WHERE plate LIKE ?1%", nativeQuery = true)
+    List<LicencePlate> findLicenceType (String plateNum);
+
+    @Query(value = "SELECT * FROM licence_plates WHERE car_brand LIKE ?1", nativeQuery = true)
+    List<LicencePlate> findBrand (String brand);
 }
