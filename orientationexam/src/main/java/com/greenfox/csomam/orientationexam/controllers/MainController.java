@@ -24,7 +24,7 @@ public class MainController {
         return "index";
     }
 
-    @RequestMapping("search/{type}")
+    @RequestMapping("/search/{type}")
     public String mainPageWithType(@PathVariable String type, Model model) {
         if (type.equals("police")) {
             model.addAttribute("searchedplatenumber", new LicencePlate());

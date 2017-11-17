@@ -11,10 +11,11 @@
     <div class="form-group" >
         <label for="search" >Search for a plate number:</label><br />
         <input type="text" class="col-md-4 mb-2" id="search"  placeholder="Enter desired plate number" th:field="*{plate}" />
-        <a href="/search/police">Police cars</a>
-        <a href="/search/diplomat">Diplomat cars</a>
+        <button type="submit" class="btn btn-primary">Search</button>
     </div>
-    <button type="submit" class="btn btn-primary">Search</button>
+    <a href="/search/police">Police cars</a>
+    <a href="/search/diplomat">Diplomat cars</a>
+
 </form>
 
 <p th:text="${errormessage}"></p>
