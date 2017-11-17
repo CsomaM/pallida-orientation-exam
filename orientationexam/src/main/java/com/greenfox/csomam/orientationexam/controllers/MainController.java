@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.jws.WebParam;
+import java.util.regex.Pattern;
 
 @Controller
 public class MainController {
@@ -22,12 +23,12 @@ public class MainController {
         return "index";
     }
 
-    @RequestMapping("/index/{type}")
+    @RequestMapping("index/{type}")
     public String mainPageWithType(@PathVariable String type, Model model) {
-        if (type.equals("RB")) {
+        if (type.equals("police")) {
             model.addAttribute("searchedplatenumber", new LicencePlate());
             model.addAttribute("platenumbers", licencePlateRepo.findLicenceType("RB"));
-        } else if (type.equals("DT")) {
+        } else if (type.equals("diplomat")) {
             model.addAttribute("searchedplatenumber", new LicencePlate());
             model.addAttribute("platenumbers", licencePlateRepo.findLicenceType("DT"));
         } else {
@@ -36,13 +37,16 @@ public class MainController {
         }
         return "index";
     }
-
-
-
+    
     @PostMapping("/search")
     public String add (@ModelAttribute LicencePlate licencePlate, Model model){
-        model.addAttribute("searchedplatenumber", new LicencePlate());
-        model.addAttribute("platenumbers", licencePlateRepo.findLicencePlate(licencePlate.getPlate()));
+        if (licencePlate.getPlate().matches("[a-zA-Z0-9-]*") && licencePlate.getPlate().length() < 8) {
+            model.addAttribute("searchedplatenumber", new LicencePlate());
+            model.addAttribute("platenumbers", licencePlateRepo.findLicencePlate(licencePlate.getPlate()));
+        } else {
+            model.addAttribute("searchedplatenumber", new LicencePlate());
+            model.addAttribute("errormessage", "Sorry, the submitted licence plate is not valid");
+        }
         return "index";
     }
 
