@@ -3,6 +3,7 @@ package com.greenfox.csomam.orientationexam.controllers;
 import com.greenfox.csomam.orientationexam.modules.LicencePlate;
 import com.greenfox.csomam.orientationexam.repositories.LicencePlateRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class MainController {
         return "index";
     }
 
-    @RequestMapping("index/{type}")
+    @RequestMapping("search/{type}")
     public String mainPageWithType(@PathVariable String type, Model model) {
         if (type.equals("police")) {
             model.addAttribute("searchedplatenumber", new LicencePlate());
@@ -37,7 +38,7 @@ public class MainController {
         }
         return "index";
     }
-    
+
     @PostMapping("/search")
     public String add (@ModelAttribute LicencePlate licencePlate, Model model){
         if (licencePlate.getPlate().matches("[a-zA-Z0-9-]*") && licencePlate.getPlate().length() < 8) {
@@ -49,5 +50,4 @@ public class MainController {
         }
         return "index";
     }
-
 }
