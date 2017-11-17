@@ -6,6 +6,16 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"/>
 </head>
 <body>
+
+<form th:action="@{/search}" th:object="${searchedplatenumber}" method="post" class="col alight-self-center">
+    <div class="form-group" >
+        <label for="search" >Search for a plate number:</label><br />
+        <input type="text" class="col-md-4 mb-2" id="search"  placeholder="Enter desired plate number" th:field="*{plate}" />
+    </div>
+    <button type="submit" class="btn btn-primary">Add post</button>
+</form>
+
+
 <table>
     <thead>
         <th>|Licence plate|</th>
